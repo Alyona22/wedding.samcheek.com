@@ -1,0 +1,209 @@
+#header {
+	box-shadow: 0 3px 5px rgba($black, .15);
+	background-color: $base-background-color;
+	padding: 8px 0;
+	position: relative;
+	
+	@include media ('>=tablet') {
+		box-shadow: none;
+	}
+	
+	@include media ('>=desktop') {
+		padding: 20px 0;
+	}
+	
+	@include media ('>=widescreen') {
+		padding: 45px 0 60px;
+	}
+	
+	input[type="checkbox"] {
+		&:checked {
+			&	~ {
+				.menu-holder {
+					max-height: 4000px;
+					
+					.menu {
+						transform: translateY(0);
+					}
+				}
+			}
+		}
+	}
+	
+	.container {
+		max-width: 1752px;
+		position: relative;
+		
+		@include media ('>=tablet') {
+			align-items: center;
+			display: flex;
+			justify-content: space-between;
+		}
+	}
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+	display: none;
+}
+
+.logo {
+	display: inline-block;
+	width: 200px;
+	
+	@include media ('>=desktop') {
+		width: 266px;
+	}
+	
+	img {
+		width: 100%;
+	}
+}
+
+.menu-holder {
+	@include media ('<tablet') {
+		@include animate(all);
+		
+		cursor: pointer;
+		left: 0;
+		overflow: hidden;
+		position: absolute;
+		right: 0;
+		top: calc(100% + 8px);
+		z-index: 2;
+	}
+}
+
+.menu {
+	@extend %listreset;
+	
+	@include media ('<tablet') {
+		@include animate(all);
+		
+		background-color: $base-background-color;
+		box-shadow: 0 3px 15px rgba($black, .15);
+		transform: translateY(-100%);
+		padding: 0 0 15px;
+		height: calc(100vh - 74px);
+	}
+	
+	@include media ('>=tablet') {
+		align-items: center;
+		display: flex;
+		justify-content: flex-end;
+	}
+	
+	li {
+		@include media ('<tablet') {
+			text-align: center;
+		}
+		
+		@include media ('>=tablet') {
+			margin: 0 10px;
+		}
+		
+		@include media ('>=desktop') {
+			margin: 0 31px;
+		}
+		
+		&:last-child {
+			@include media ('>=tablet') {
+				margin-right: 0;
+			}
+			
+			a {
+				text-transform: none;
+			}
+		}
+		
+		&:hover,
+		&.active {
+			a {
+				&:after {
+					width: 100%;
+				}
+			}
+		}
+		
+		a {
+			color: #73757c;
+			display: inline-block;
+			font-size: 16px;
+			font-family: $ubuntu-font;
+			letter-spacing: 1.6px;
+			text-transform: capitalize;
+			padding: 4px 10px;
+			position: relative;
+			
+			&:after {
+				@include animate(width);
+				
+				background-color: $light-pink;
+				bottom: 0;
+				content: '';
+				height: 1px;
+				left: 50%;
+				position: absolute;
+				transform: translateX(-50%);
+				width: 0%;
+			}
+		}
+	}
+}
+
+.menu-opener {
+	cursor: pointer;
+	display: block;
+	height: 30px;
+	margin-left: 15px;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	right: 15px;
+	width: 30px;
+	z-index: 5;
+	
+	@include media ('>=tablet') {
+		display: none;
+	}
+	
+	&:before {
+		animation: ringRotate 2.5s infinite;
+		background-image: url("images/ring.svg");
+		background-size: 30px 30px;
+		background-repeat: no-repeat;
+		content: '';
+		position: absolute;
+		height: 100%;
+		width: 100%;
+	}
+}
+
+.close-menu {
+	position: relative;
+	
+	&:after {
+		@include media ('<tablet') {
+			content: '';
+			display: block;
+			height: 100vh;
+			width: 100%;
+			position: fixed;
+			z-index: 1;
+		}
+	}
+}
+
+@keyframes ringRotate {
+	0% {
+		transform: rotate(0deg);
+	}
+	
+	50% {
+		transform: rotate(-80deg);
+	}
+	
+	100% {
+		transform: rotate(0deg);
+	}
+}
